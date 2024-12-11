@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelian Mobil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function formatRupiah(el) {
+            let value = el.value.replace(/\D/g, '');
+            el.value = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(value);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Pembelian Mobil</h1>
+        <form action="/" method="post">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+            
+            <label for="car_model">Model Mobil:</label>
+            <input type="text" id="car_model" name="car_model" placeholder="Masukkan model mobil" required>
+            
+            <label for="price">Harga:</label>
+            <input type="text" id="price" name="price" placeholder="Masukkan harga" oninput="formatRupiah(this)" required>
+            
+            <button type="submit">Beli</button>
+        </form>
+
+        <!-- Area untuk menampilkan pesan konfirmasi -->
+        {% if message %}
+            <div class="confirmation">
+                <p>{{ message }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
